@@ -1,12 +1,12 @@
-import React from 'react'
+import React from "react";
 import Header from "../../Components/Header/Header";
-import Landing from "../../Landing/Landing";
+import LastCourses from "../../Components/LastCuorses/LastCourses";
 
-export default function Index () {
+export default function Index() {
   return (
     <div>
-        <Header/>
-        <Landing/>
+      <Header />
+      <LastCourses />
     </div>
-  )
+  );
 }
