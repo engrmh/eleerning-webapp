@@ -188,6 +188,7 @@
   border-radius: 0.5rem;
   padding: 2rem;
   margin-top: 2rem;
+  margin-bottom: 2rem;
   box-shadow: 0 0 13px 1px rgba(70, 72, 77, 0.08);
 }
 
@@ -359,14 +360,13 @@
 .courses-info {
   position: sticky;
   top: 2rem;
+  bottom: 2rem;
 }
 
 .course-info {
   border-radius: 0.5rem;
   margin-top: 1rem;
   padding: 2.2rem;
-  box-shadow: 0 0 13px 1px rgba(70, 72, 77, 0.08);
-  border: 1px solid #f2f2f2;
 }
 
 .course-info__topic-title {

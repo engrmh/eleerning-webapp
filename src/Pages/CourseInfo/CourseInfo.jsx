@@ -2,6 +2,7 @@ import React from "react";
 import Breadcrumb from "../../Components/Breadcrumb/Breadcrumb";
 import "./CourseInfo.css";
 import CourseDetailBox from "../../Components/CourseDetailBox/CourseDetailBox";
+import CommentsTextArea from "../../Components/CommentsTextArea/CommentsTextArea";
 
 export default function CourseInfo() {
   return (
@@ -365,6 +366,7 @@ export default function CourseInfo() {
                           گرفتم در زمینه وب فعالیت داشته باشم.و..
                         </p>
                       </div>
+                      <CommentsTextArea/>
                     </div>
                   </div>
                   {/*  */}

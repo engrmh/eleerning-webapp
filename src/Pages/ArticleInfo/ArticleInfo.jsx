@@ -1,6 +1,7 @@
 import React from "react";
 import Breadcrumb from "../../Components/Breadcrumb/Breadcrumb";
 import "./ArticleInfo.css";
+import CommentsTextArea from "../../Components/CommentsTextArea/CommentsTextArea";
 
 export default function ArticleInfo() {
   return (
@@ -229,7 +230,7 @@ export default function ArticleInfo() {
                 </div>
               </div>
               {/*  */}
-              
+              <CommentsTextArea/>
             </div>
             {/*  */}
             <div class="col-4"></div>
