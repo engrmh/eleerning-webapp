@@ -10,7 +10,7 @@ const routes = [
   },
   {
     path: "/course-info/:courseName",
-    element: <CourseInfo />,
+    element: <CourseInfo/>,
   },
   {
     path: "/category-info/:categoryName",
