@@ -3,6 +3,8 @@ import Index from "./Pages/Index/Index";
 import CourseInfo from "./Pages/CourseInfo/CourseInfo";
 import ArticleInfo from "./Pages/ArticleInfo/ArticleInfo";
 import Courses from "./Pages/Courses/Courses";
+import Login from "./Pages/Login/Login";
+import Register from "./Pages/Register/Register";
 
 const routes = [
   {
@@ -11,7 +13,7 @@ const routes = [
   },
   {
     path: "/course-info/:courseName",
-    element: <CourseInfo/>,
+    element: <CourseInfo />,
   },
   {
     path: "/category-info/:categoryName",
@@ -20,9 +22,18 @@ const routes = [
   {
     path: "/article-info/:articleName",
     element: <ArticleInfo />,
-  },{
+  },
+  {
     path: "/courses",
-    element: <Courses/>,
+    element: <Courses />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
   },
 ];
 export default routes;
