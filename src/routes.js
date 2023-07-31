@@ -2,6 +2,7 @@ import Category from "./Pages/Category/Category";
 import Index from "./Pages/Index/Index";
 import CourseInfo from "./Pages/CourseInfo/CourseInfo";
 import ArticleInfo from "./Pages/ArticleInfo/ArticleInfo";
+import Courses from "./Pages/Courses/Courses";
 
 const routes = [
   {
@@ -19,6 +20,9 @@ const routes = [
   {
     path: "/article-info/:articleName",
     element: <ArticleInfo />,
+  },{
+    path: "/courses",
+    element: <Courses/>,
   },
 ];
 export default routes;
