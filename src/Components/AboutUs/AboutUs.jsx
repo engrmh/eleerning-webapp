@@ -5,15 +5,15 @@ import AboutUsBox from "../AboutUsBox/AboutUsBox";
 export default function AboutUs() {
   return (
     <>
-      <div class="about-us">
-        <div class="container">
+      <div className="about-us">
+        <div className="container">
           <SectionHeader
             title={"ما چه کمکی بهتون میکنیم؟"}
             desc={"از اونجایی که آکادمی آموزشی سبزلرن یک آکادمی خصوصی هست"}
           />
 
-          <div class="container">
-            <div class="row">
+          <div className="container">
+            <div className="row">
               <AboutUsBox
                 icon={"far fa-copyright"}
                 title={"دوره های اختصاصی"}

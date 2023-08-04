@@ -1,58 +1,58 @@
-import React from 'react'
-import './Courses.css'
-import Breadcrumb from '../../Components/Breadcrumb/Breadcrumb'
-import CourseBox from '../../Components/CourseBox/CourseBox'
+import React from "react";
+import "./Courses.css";
+import Breadcrumb from "../../Components/Breadcrumb/Breadcrumb";
+import CourseBox from "../../Components/CourseBox/CourseBox";
 
 export default function Courses() {
   return (
     <>
-        <Breadcrumb
+      <Breadcrumb
         links={[
           { id: 1, title: "خانه", to: "" },
           {
             id: 2,
             title: "تمامی دوره ها",
             to: "courses",
-          }
+          },
         ]}
       />
-      <section class="courses">
-        <div class="container">
-          <div class="courses-content">
-            <div class="container">
-              <div class="row">
-                <CourseBox/>
-                <CourseBox/>
-                <CourseBox/>
-                <CourseBox/>
-                <CourseBox/>
-                <CourseBox/>
+      <section className="courses">
+        <div className="container">
+          <div className="courses-content">
+            <div className="container">
+              <div className="row">
+                <CourseBox />
+                <CourseBox />
+                <CourseBox />
+                <CourseBox />
+                <CourseBox />
+                <CourseBox />
               </div>
             </div>
           </div>
 
-          <div class="courses-pagination">
-            <ul class="courses__pagination-list">
-              <li class="courses__pagination-item">
-                <a href="#" class="courses__pagination-link">
-                  <i class="fas fa-long-arrow-alt-right courses__pagination-icon"></i>
+          <div className="courses-pagination">
+            <ul className="courses__pagination-list">
+              <li className="courses__pagination-item">
+                <a href="#" className="courses__pagination-link">
+                  <i className="fas fa-long-arrow-alt-right courses__pagination-icon"></i>
                 </a>
               </li>
-              <li class="courses__pagination-item">
+              <li className="courses__pagination-item">
                 <a
                   href="#"
-                  class="courses__pagination-link courses__pagination-link--active"
+                  className="courses__pagination-link courses__pagination-link--active"
                 >
                   1
                 </a>
               </li>
-              <li class="courses__pagination-item">
-                <a href="#" class="courses__pagination-link">
+              <li className="courses__pagination-item">
+                <a href="#" className="courses__pagination-link">
                   2
                 </a>
               </li>
-              <li class="courses__pagination-item">
-                <a href="#" class="courses__pagination-link">
+              <li className="courses__pagination-item">
+                <a href="#" className="courses__pagination-link">
                   3
                 </a>
               </li>
@@ -61,5 +61,5 @@ export default function Courses() {
         </div>
       </section>
     </>
-  )
+  );
 }

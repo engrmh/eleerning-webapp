@@ -12,12 +12,12 @@ export default function LastCourses() {
             title={"جدیدترین دوره ها"}
             desc={"سکوی پرتاپ شما به سمت موفقیت"}
             btnTitle={"تمامی دوره ها"}
-            btnHref={'courses'}
+            btnHref={"courses"}
           />
 
-          <div class="courses-content">
-            <div class="container">
-              <div class="row">
+          <div className="courses-content">
+            <div className="container">
+              <div className="row">
                 <CourseBox />
                 <CourseBox />
                 <CourseBox />

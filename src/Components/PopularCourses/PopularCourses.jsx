@@ -5,8 +5,8 @@ import SectionHeader from "../SectionHeader/SectionHeader";
 export default function PopularCourses() {
   return (
     <>
-      <div class="popular">
-        <div class="container">
+      <div className="popular">
+        <div className="container">
           <SectionHeader title="محبوب ترین دوره ها" />
         </div>
       </div>

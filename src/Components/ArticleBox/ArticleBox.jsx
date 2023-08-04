@@ -10,13 +10,13 @@ export default function ArticleBox({ title, desc, cover }) {
     alert("Error In Loading Image");
   };
   return (
-    <div class="col-4">
-      <div class="article-card">
-        <div class="article-card__header">
-          <a href="#" class="article-card__link-img">
+    <div className="col-4">
+      <div className="article-card">
+        <div className="article-card__header">
+          <a href="#" className="article-card__link-img">
             <img
               src={cover}
-              class="article-card__img"
+              className="article-card__img"
               alt="Article Cover"
               onLoad={() => onImageLoader()}
               onError={() => onImageError()}
@@ -24,12 +24,12 @@ export default function ArticleBox({ title, desc, cover }) {
             {!isImgShow && <CircleSpinner />}
           </a>
         </div>
-        <div class="article-card__content">
-          <a href="#" class="article-card__link">
+        <div className="article-card__content">
+          <a href="#" className="article-card__link">
             {title}
           </a>
-          <p class="article-card__text">{desc}</p>
-          <a href="#" class="article-card__btn">
+          <p className="article-card__text">{desc}</p>
+          <a href="#" className="article-card__btn">
             بیشتر بخوانید
           </a>
         </div>

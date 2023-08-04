@@ -14,8 +14,8 @@ export default function LastArticle() {
             btnTitle="تمامی مقاله ها"
           />
 
-          <div class="articles__content">
-            <div class="row">
+          <div className="articles__content">
+            <div className="row">
               <ArticleBox
                 cover="images/blog/3.jpg"
                 title="نحوه نصب کتابخانه در پایتون | آموزش نصب کتابخانه پایتون"

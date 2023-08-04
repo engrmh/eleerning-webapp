@@ -3,14 +3,14 @@ import "./AboutUsBox.css";
 
 export default function AboutUsBox({ icon, title, desc }) {
   return (
-    <div class="col-6">
-      <div class="about-us__box">
-        <div class="about-us__box-right">
+    <div className="col-6">
+      <div className="about-us__box">
+        <div className="about-us__box-right">
           <i class={`${icon} about-us__icon`}></i>
         </div>
-        <div class="about-us__box-left">
-          <span class="about-us__box-title">{title}</span>
-          <span class="about-us__box-text">{desc}</span>
+        <div className="about-us__box-left">
+          <span className="about-us__box-title">{title}</span>
+          <span className="about-us__box-text">{desc}</span>
         </div>
       </div>
     </div>
