@@ -3,6 +3,7 @@ import "./Login.css";
 import { Link } from "react-router-dom";
 import Input from "../../Components/Form/Input";
 import Button from "../../Components/Form/Button";
+import { maxValidator, minValidator, requiredValidator } from "../../Validators/rules";
 
 export default function Login() {
   const userLogin = (e) => {
@@ -23,12 +24,17 @@ export default function Login() {
           </Link>
         </div>
         <form action="#" className="login-form">
-          <div className="login-form__username">
+          <div className="login-form__username">~``
             <Input
               element="input"
               className={"login-form__username-input"}
               type={"text"}
               placeholder={"نام کاربری یا آدرس ایمیل"}
+              validation={[
+                requiredValidator(),
+                minValidator(8),
+                maxValidator(20)
+              ]}
             />
             <i className="login-form__username-icon fa fa-user"></i>
           </div>
@@ -38,6 +44,11 @@ export default function Login() {
               className={"login-form__password-input"}
               type={"password"}
               placeholder={"رمز عبور"}
+              validation={[
+                requiredValidator(),
+                minValidator(8),
+                maxValidator(18)
+              ]}
             />
             <i className="login-form__password-icon fa fa-lock-open"></i>
           </div>
