@@ -1,6 +1,7 @@
 import React from "react";
 import "./Login.css";
 import { Link } from "react-router-dom";
+import Input from "../../Components/Form/Input";
 
 export default function Login() {
   return (
@@ -18,18 +19,20 @@ export default function Login() {
         </div>
         <form action="#" class="login-form">
           <div class="login-form__username">
-            <input
-              class="login-form__username-input"
-              type="text"
-              placeholder="نام کاربری یا آدرس ایمیل"
+            <Input
+              element='input'
+              className={"login-form__username-input"}
+              type={"text"}
+              placeholder={"نام کاربری یا آدرس ایمیل"}
             />
             <i class="login-form__username-icon fa fa-user"></i>
           </div>
           <div class="login-form__password">
-            <input
-              class="login-form__password-input"
-              type="text"
-              placeholder="رمز عبور"
+          <Input
+              element='input'
+              className={"login-form__password-input"}
+              type={"password"}
+              placeholder={"رمز عبور"}
             />
             <i class="login-form__password-icon fa fa-lock-open"></i>
           </div>
