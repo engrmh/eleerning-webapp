@@ -3,12 +3,23 @@ import "./Login.css";
 import { Link } from "react-router-dom";
 import Input from "../../Components/Form/Input";
 import Button from "../../Components/Form/Button";
-import { maxValidator, minValidator, requiredValidator } from "../../Validators/rules";
+import {emailValidator, maxValidator, minValidator, requiredValidator} from "../../Validators/rules";
+import {useForm} from "../../hooks/useForm";
 
 export default function Login() {
+  const [formState , onInputHandler] = useForm({
+    username: {
+      value: '',
+      isValid: false
+    },
+    password: {
+      value: '',
+      isValid: false
+    }
+  } , false)
   const userLogin = (e) => {
     e.preventDefault();
-    console.log("user loged");
+    console.log("user logged");
   };
   return (
     <section className="login-register">
@@ -24,39 +35,44 @@ export default function Login() {
           </Link>
         </div>
         <form action="#" className="login-form">
-          <div className="login-form__username">~``
+          <div className="login-form__username">
             <Input
               element="input"
-              className={"login-form__username-input"}
-              type={"text"}
-              placeholder={"نام کاربری یا آدرس ایمیل"}
+              className="login-form__username-input"
+              id='username'
+              type="text"
+              placeholder="نام کاربری یا آدرس ایمیل"
               validation={[
                 requiredValidator(),
                 minValidator(8),
-                maxValidator(20)
+                maxValidator(30),
+                emailValidator()
               ]}
+              onInputHandler={onInputHandler}
             />
             <i className="login-form__username-icon fa fa-user"></i>
           </div>
           <div className="login-form__password">
             <Input
               element="input"
-              className={"login-form__password-input"}
-              type={"password"}
-              placeholder={"رمز عبور"}
+              className="login-form__password-input"
+              id='password'
+              type="password"
+              placeholder="رمز عبور"
               validation={[
                 requiredValidator(),
                 minValidator(8),
                 maxValidator(18)
               ]}
+              onInputHandler={onInputHandler}
             />
             <i className="login-form__password-icon fa fa-lock-open"></i>
           </div>
           <Button
-            className="login-form__btn"
+            className={`login-form__btn ${formState.isFormValid ? 'login-form__btn-success' : 'login-form__btn-error'}`}
             type="submit"
             onClick={(e) => userLogin(e)}
-            disabled={false}
+            disabled={!formState.isFormValid}
           >
             <i className="login-form__btn-icon fas fa-sign-out-alt"></i>
             <span className="login-form__btn-text">ورود</span>
