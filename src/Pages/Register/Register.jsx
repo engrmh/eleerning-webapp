@@ -8,6 +8,10 @@ import {useForm} from "../../hooks/useForm";
 
 export default function Register() {
   const [formState , onInputHandler] = useForm({
+    name: {
+      value: '',
+      isValid : false
+    },
     username: {
       value: '',
       isValid : false
@@ -21,11 +25,26 @@ export default function Register() {
       isValid : false
     },
   })
-
   const registerNewUser = (e) => {
     e.preventDefault();
-    console.log("user registered");
+    const newUserInfos = {
+      username: formState.inputs.username.value,
+      email: formState.inputs.email.value,
+      password: formState.inputs.password.value,
+      confirmPassword: formState.inputs.password.value,
+      name: formState.inputs.name.value,
+      phone: '000'
+    }
+
+    fetch('http://localhost:4000/v1/auth/register' , {
+      method: 'POST',
+      headers: {
+        'Content-Type' : 'application/json'
+      },
+      body: JSON.stringify(newUserInfos)
+    }).then(res => console.log(res))
   };
+
   return (
     <section className="login-register">
       <div className="login register-form">
@@ -42,6 +61,22 @@ export default function Register() {
           </Link>
         </div>
         <form action="#" className="login-form">
+          <div className="login-form__username">
+            <Input
+              element="input"
+              className="login-form__username-input"
+              id='name'
+              type="text"
+              placeholder="نام و نام خانوادگی"
+              validation={[
+                requiredValidator(),
+                minValidator(6),
+                maxValidator(20),
+              ]}
+              onInputHandler={onInputHandler}
+            />
+            <i className="login-form__username-icon fa fa-user"></i>
+          </div>
           <div className="login-form__username">
             <Input
               element="input"
