@@ -12,8 +12,10 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [token, setToken] = useState(false)
   const [userInfos, setUserInfos] = useState(false)
-  const login = () => {
+  const login = (userInfos , token) => {
     setToken(token)
+    setIsLoggedIn(true)
+    setUserInfos(userInfos)
     localStorage.setItem('user' , JSON.stringify({token}))
   }
   const logout = () => {

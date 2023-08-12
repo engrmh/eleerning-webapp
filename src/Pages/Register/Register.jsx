@@ -1,12 +1,14 @@
-import React from "react";
+import React, {useContext} from "react";
 import "./Register.css";
-import {json, Link} from "react-router-dom";
+import {Link} from "react-router-dom";
 import Input from "../../Components/Form/Input";
 import Button from "../../Components/Form/Button";
 import {emailValidator, maxValidator, minValidator, requiredValidator} from "../../Validators/rules";
 import {useForm} from "../../hooks/useForm";
+import AuthContext from "../../Components/context/authContext";
 
 export default function Register() {
+  const authContext = useContext(AuthContext)
   const [formState , onInputHandler] = useForm({
     name: {
       value: '',
@@ -47,6 +49,9 @@ export default function Register() {
       },
       body: JSON.stringify(newUserInfos)
     }).then(res => res.json())
+        .then(json => {
+          authContext.login(json.user , json.accessToken)
+        })
   };
 
   return (
