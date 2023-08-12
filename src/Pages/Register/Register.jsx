@@ -1,6 +1,6 @@
 import React from "react";
 import "./Register.css";
-import { Link } from "react-router-dom";
+import {json, Link} from "react-router-dom";
 import Input from "../../Components/Form/Input";
 import Button from "../../Components/Form/Button";
 import {emailValidator, maxValidator, minValidator, requiredValidator} from "../../Validators/rules";
@@ -20,6 +20,10 @@ export default function Register() {
       value: '',
       isValid : false
     },
+    phone: {
+      value: '',
+      isValid : false
+    },
     password: {
       value: '',
       isValid : false
@@ -33,7 +37,7 @@ export default function Register() {
       password: formState.inputs.password.value,
       confirmPassword: formState.inputs.password.value,
       name: formState.inputs.name.value,
-      phone: '000'
+      phone: formState.inputs.phone.value
     }
 
     fetch('http://localhost:4000/v1/auth/register' , {
@@ -42,7 +46,7 @@ export default function Register() {
         'Content-Type' : 'application/json'
       },
       body: JSON.stringify(newUserInfos)
-    }).then(res => console.log(res))
+    }).then(res => res.json())
   };
 
   return (
@@ -91,7 +95,7 @@ export default function Register() {
               ]}
               onInputHandler={onInputHandler}
             />
-            <i className="login-form__username-icon fa fa-user"></i>
+            <i className="login-form__username-icon fa-solid fa-hashtag"></i>
           </div>
           <div className="login-form__password">
             <Input
@@ -109,6 +113,22 @@ export default function Register() {
               onInputHandler={onInputHandler}
             />
             <i className="login-form__password-icon fa fa-envelope"></i>
+          </div>
+          <div className="login-form__username">
+            <Input
+                element="input"
+                className="login-form__username-input"
+                id='phone'
+                type="tel"
+                placeholder="شماره تماس"
+                validation={[
+                  requiredValidator(),
+                  minValidator(6),
+                  maxValidator(20),
+                ]}
+                onInputHandler={onInputHandler}
+            />
+            <i className="login-form__username-icon fa-solid fa-phone"></i>
           </div>
           <div className="login-form__password">
             <Input

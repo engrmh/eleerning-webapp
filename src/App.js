@@ -4,11 +4,31 @@ import routes from "./routes";
 import Topbar from "./Components/Topbar/Topbar";
 import Navbar from "./Components/Navbar/Navbar";
 import Footer from "./Components/Footer/Footer";
+import AuthContext from "./Components/context/authContext";
+import {useState} from "react";
 
 function App() {
   const router = useRoutes(routes);
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [token, setToken] = useState(false)
+  const [userInfos, setUserInfos] = useState(false)
+  const login = () => {
+    setToken(token)
+    localStorage.setItem('user' , JSON.stringify({token}))
+  }
+  const logout = () => {
+    setToken(null)
+    setUserInfos({})
+    localStorage.removeItem('user')
+  }
   return (
-    <>
+    <AuthContext.Provider value={{
+      isLoggedIn,
+      token,
+      userInfos,
+      login,
+      logout
+    }}>
       <div className="">
         <div className="">
           <Topbar />
@@ -19,7 +39,7 @@ function App() {
           <Footer />
         </div>
       </div>
-    </>
+    </AuthContext.Provider>
   );
 }
 
