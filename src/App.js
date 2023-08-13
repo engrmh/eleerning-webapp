@@ -6,6 +6,7 @@ import Navbar from "./Components/Navbar/Navbar";
 import Footer from "./Components/Footer/Footer";
 import AuthContext from "./Components/context/authContext";
 import {useCallback, useEffect, useState} from "react";
+import authContext from "./Components/context/authContext";
 
 function App() {
   const router = useRoutes(routes);
@@ -42,7 +43,7 @@ function App() {
             setUserInfos(userData)
           })
     }
-  }, [login]);
+  }, [login , token]);
 
   return (
     <AuthContext.Provider value={{

@@ -1,13 +1,15 @@
 import React, {useContext} from "react";
 import "./Login.css";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import Input from "../../Components/Form/Input";
 import Button from "../../Components/Form/Button";
 import {emailValidator, maxValidator, minValidator, requiredValidator} from "../../Validators/rules";
 import {useForm} from "../../hooks/useForm";
 import AuthContext from "../../Components/context/authContext";
+import swal from "sweetalert";
 
 export default function Login() {
+  const navigate = useNavigate()
   const authContext = useContext(AuthContext)
   const [formState , onInputHandler] = useForm({
     username: {
@@ -18,7 +20,8 @@ export default function Login() {
       value: '',
       isValid: false
     }
-  } , false)
+  } , false);
+
   const userLogin = (e) => {
     e.preventDefault();
 
@@ -42,9 +45,20 @@ export default function Login() {
         return res.json()
       }
     }).then(result => {
-      authContext.login(result.user , result.accessToken)
+      //chon login karbar faghat access token mide bekhater hmain bayad yek object bejaye user ersal konim
+      authContext.login({} , result.accessToken)
+      swal({
+        title: "خوش آمدید",
+        icon: "success",
+        button: "بستن",
+      });
+      navigate('/')
     }).catch(err =>{
-      console.log(err)
+      swal({
+        title: "کاربر یافت نشد",
+        icon: "error",
+        button: "تلاش دوباره",
+      });
     })
   };
   return (

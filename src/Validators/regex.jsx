@@ -14,7 +14,6 @@ const phoneNumber = () => {
     //static phone number (home and office) => ^0[0-9]{2,}[0-9]{7,}$
 }
 
-// eslint-disable-next-line import/no-anonymous-default-export
 export default {
     emailRegex,
     nationalCodeRegex,
