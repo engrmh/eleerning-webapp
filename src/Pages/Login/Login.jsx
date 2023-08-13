@@ -1,12 +1,14 @@
-import React from "react";
+import React, {useContext} from "react";
 import "./Login.css";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 import Input from "../../Components/Form/Input";
 import Button from "../../Components/Form/Button";
 import {emailValidator, maxValidator, minValidator, requiredValidator} from "../../Validators/rules";
 import {useForm} from "../../hooks/useForm";
+import AuthContext from "../../Components/context/authContext";
 
 export default function Login() {
+  const authContext = useContext(AuthContext)
   const [formState , onInputHandler] = useForm({
     username: {
       value: '',
@@ -19,7 +21,31 @@ export default function Login() {
   } , false)
   const userLogin = (e) => {
     e.preventDefault();
-    console.log("user logged");
+
+    const userData = {
+      identifier: formState.inputs.username.value,
+      password: formState.inputs.password.value
+    }
+
+    fetch(`http://localhost:4000/v1/auth/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type' : 'application/json'
+      },
+      body: JSON.stringify(userData)
+    }).then(res => {
+      if (!res.ok){
+        return res.text().then(text => {
+          throw new Error(text)
+        })
+      }else {
+        return res.json()
+      }
+    }).then(result => {
+      authContext.login(result.user , result.accessToken)
+    }).catch(err =>{
+      console.log(err)
+    })
   };
   return (
     <section className="login-register">
@@ -44,9 +70,8 @@ export default function Login() {
               placeholder="نام کاربری یا آدرس ایمیل"
               validation={[
                 requiredValidator(),
-                minValidator(8),
-                maxValidator(30),
-                emailValidator()
+                minValidator(6),
+                maxValidator(30)
               ]}
               onInputHandler={onInputHandler}
             />
