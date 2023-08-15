@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import "./Register.css";
 import {Link} from "react-router-dom";
 import Input from "../../Components/Form/Input";
@@ -6,9 +6,11 @@ import Button from "../../Components/Form/Button";
 import {emailValidator, maxValidator, minValidator, requiredValidator} from "../../Validators/rules";
 import {useForm} from "../../hooks/useForm";
 import AuthContext from "../../Components/context/authContext";
+import ReCAPTCHA from "react-google-recaptcha";
 
 export default function Register() {
   const authContext = useContext(AuthContext)
+  const [isGoogleRecapthaVerify, setIsGoogleRecapthaVerify] = useState(false)
   const [formState , onInputHandler] = useForm({
     name: {
       value: '',
@@ -53,6 +55,10 @@ export default function Register() {
           authContext.login(json.user , json.accessToken)
         })
   };
+
+  const onChangeHandler = () => {
+    setIsGoogleRecapthaVerify(true)
+  }
 
   return (
     <section className="login-register">
@@ -151,11 +157,17 @@ export default function Register() {
             />
             <i className="login-form__password-icon fa fa-lock-open"></i>
           </div>
+          <div className="login-form__password">
+            <ReCAPTCHA
+                sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+                onChange={onChangeHandler}
+            />
+          </div>
           <Button
-            className={`login-form__btn ${formState.isFormValid ? 'login-form__btn-success' : 'login-form__btn-error'}`}
+            className={`login-form__btn ${formState.isFormValid && isGoogleRecapthaVerify ? 'login-form__btn-success' : 'login-form__btn-error'}`}
             type="submit"
             onClick={(e) => registerNewUser(e)}
-            disabled={!formState.isFormValid}
+            disabled={!formState.isFormValid || !isGoogleRecapthaVerify}
           >
             <i className="login-form__btn-icon fa fa-user-plus"></i>
             <span className="login-form__btn-text">عضویت</span>
