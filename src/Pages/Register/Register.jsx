@@ -157,7 +157,7 @@ export default function Register() {
             />
             <i className="login-form__password-icon fa fa-lock-open"></i>
           </div>
-          <div className="login-form__password">
+          <div className="login-form__password my-2">
             <ReCAPTCHA
                 sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
                 onChange={onChangeHandler}
