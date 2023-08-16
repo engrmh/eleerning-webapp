@@ -18,10 +18,11 @@ export default function CourseInfo() {
   const {courseName} = useParams()
 
   useEffect(() => {
+    const localStorageData = JSON.parse(localStorage.getItem('user'))
     fetch(`http://localhost:4000/v1/courses/${courseName}`,{
       method: 'GET',
       headers: {
-        Authorization : `Bearer ${JSON.parse(localStorage.getItem('user')).token}`
+        Authorization : `Bearer ${localStorageData === null ? null : localStorageData.token}`
       }
     })
         .then(res => res.json())

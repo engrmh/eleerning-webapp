@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import "./CommentsTextArea.css";
 import AuthContext from "../context/authContext";
 import Pagination from "../Pagination/Pagination";
+import {Link} from "react-router-dom";
 
 export default function CommentsTextArea({ comments }) {
   const authContext = useContext(AuthContext);
@@ -43,29 +44,36 @@ export default function CommentsTextArea({ comments }) {
               </div>
             </>
           ))}
-            <Pagination/>
+          <Pagination />
         </>
       ) : (
-        <div className="aler alert-warning">هنوز کامنتی ثبت نشده است</div>
+        <div className="alert alert-warning">هنوز کامنتی ثبت نشده است</div>
       )}
-
-      <span className="comments__title">دیدگاهتان را بنویسید</span>
-      <span className="comments__text">
-        <span>با عنوان {authContext.userInfos.name} وارد شده اید.</span>
-        <a href="#">خارج میشوید? </a>
-        بخش های موردنیاز علامت گذاری شده اند *
-      </span>
-      <div className="comments_content">
-        <span className="comments__content-title">دیدگاه *</span>
-        <textarea className="comments__content-textarea"></textarea>
-      </div>
-      <button
-        type="submit"
-        className="comments__button"
-        onClick={() => console.log("comment added")}
-      >
-        فرستادن دیدگاه
-      </button>
+      {authContext.isLoggedIn ? (
+        <div className="">
+          <span className="comments__title">دیدگاهتان را بنویسید</span>
+          <span className="comments__text">
+            <span>با عنوان {authContext.userInfos.name} وارد شده اید.</span>
+            <a className='me-2' onClick={authContext.logout}>خارج میشوید؟ </a>
+            بخش های موردنیاز علامت گذاری شده اند *
+          </span>
+          <div className="comments_content">
+            <span className="comments__content-title">دیدگاه *</span>
+            <textarea className="comments__content-textarea"></textarea>
+          </div>
+          <button
+            type="submit"
+            className="comments__button"
+            onClick={() => console.log("comment added")}
+          >
+            فرستادن دیدگاه
+          </button>
+        </div>
+      ) : (
+        <div className="alert alert-warning">برای ثبت کامنت باید
+            <Link to='/login' className='me-2'>لاگین کنید</Link>
+        </div>
+      )}
     </div>
   );
 }
