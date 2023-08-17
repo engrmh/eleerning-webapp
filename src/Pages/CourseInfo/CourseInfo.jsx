@@ -6,6 +6,7 @@ import CourseDetailBox from "../../Components/CourseDetailBox/CourseDetailBox";
 import CommentsTextArea from "../../Components/CommentsTextArea/CommentsTextArea";
 import {useParams} from "react-router-dom";
 import AuthContext from "../../Components/context/authContext";
+import swal from "sweetalert";
 
 export default function CourseInfo() {
   const authContext = useContext(AuthContext)
@@ -16,18 +17,17 @@ export default function CourseInfo() {
   const [courseDetail, setCourseDetail] = useState({})
 
   const {courseName} = useParams()
+  const localStorageData = JSON.parse(localStorage.getItem('user'))
 
   useEffect(() => {
-    const localStorageData = JSON.parse(localStorage.getItem('user'))
     fetch(`http://localhost:4000/v1/courses/${courseName}`,{
       method: 'GET',
       headers: {
-        Authorization : `Bearer ${localStorageData === null ? null : localStorageData.token}`
+        'Authorization' : `Bearer ${localStorageData === null ? null : localStorageData.token}`
       }
     })
         .then(res => res.json())
         .then(data => {
-          console.log(data)
           setComments(data.comments)
           setSession(data.sessions)
           setCreateAt(data.createdAt)
@@ -35,6 +35,28 @@ export default function CourseInfo() {
           setCourseDetail(data)
         })
   }, []);
+
+  const submitComment = (newComment) => {
+    fetch(`http://localhost:4000/v1/comments` , {
+      method: "POST",
+      headers: {
+        'Content-Type' : 'application/json',
+        'Authorization': `Bearer ${localStorageData.token}`
+      },
+      body: JSON.stringify({
+        body: newComment,
+        courseShortName: courseName,
+        score: '5'
+      })
+    }).then(res => res.json())
+        .then(data => {
+          swal({
+            title: 'کامنت مورد نظر ثبت شد',
+            icon: 'success',
+            buttons: 'تایید'
+          })
+        })
+  }
 
   return (
     <>
@@ -220,7 +242,7 @@ export default function CourseInfo() {
                               <Accordion.Header>معرفی دوره</Accordion.Header>
                               {
                                 session.map((session , index) => (
-                                    <Accordion.Body className="introduction__accordion-body">
+                                    <Accordion.Body className="introduction__accordion-body" key={index}>
                                       <div className="introduction__accordion-right">
                                   <span className="introduction__accordion-count">
                                     {index + 1}
@@ -279,7 +301,7 @@ export default function CourseInfo() {
                           گرفتم در زمینه وب فعالیت داشته باشم.و..
                         </p>
                       </div>
-                      <CommentsTextArea comments={comments}/>
+                      <CommentsTextArea comments={comments} submitComment={submitComment}/>
                     </div>
                   </div>
                   {/*  */}

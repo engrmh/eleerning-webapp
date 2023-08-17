@@ -32,8 +32,8 @@ export default function Navbar() {
               </li>
 
               {
-                allMenus.map(menu => (
-                    <li className="main-header__item">
+                allMenus.map((menu , index) => (
+                    <li className="main-header__item" key={index}>
                       <Link to={menu.href} className="main-header__link">
                         {menu.title}
                         {
@@ -42,8 +42,8 @@ export default function Navbar() {
                                   <i className='fas fa-angle-down main-header__link-icon'></i>
                                   <ul className="main-header__dropdown">
                                     {
-                                      menu.submenus.map(item => (
-                                          <li className="main-header__dropdown-item">
+                                      menu.submenus.map((item , index) => (
+                                          <li className="main-header__dropdown-item" key={index}>
                                             <Link to={item.href} className="main-header__dropdown-link">
                                               {item.title}
                                             </Link>
