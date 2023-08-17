@@ -1,38 +1,40 @@
 import React, { useState } from "react";
 import "./CourseBox.css";
 import CircleSpinner from "../CircleSpinner/CircleSpinner";
+import {Link} from "react-router-dom";
 
-export default function CourseBox() {
+export default function CourseBox(props) {
   const [isImgShow, setIsImgShow] = useState(false);
 
   const onImageLoader = () => setIsImgShow(true);
-  const onImageError = () => {
-    alert("Error In Loading Image");
-  };
+  // const onImageError = () => {
+  //   alert("Error In Loading Image");
+  // };
 
   return (
     <div className="col-4">
       <div className="course-box">
-        <a href="#">
+        <Link to={`/course-info/${props.shortName}`}>
           <img
-            src="/images/courses/fareelancer.png"
-            alt="Course img"
+            // src={`/images/courses/${props.cover}`}
+            src={`http://localhost:4000/courses/covers/${props.cover}`}
+            alt={props.shortName}
             className="course-box__img"
             onLoad={() => onImageLoader()}
-            onError={() => onImageError()}
+            // onError={() => onImageError()}
           />
           {!isImgShow && <CircleSpinner />}
-        </a>
+        </Link>
         <div className="course-box__main">
-          <a href="#" className="course-box__title">
-            دوره پروژه محور متخصص جنگو
-          </a>
+          <Link to={`/course-info/${props.shortName}`} className="course-box__title">
+            {props.name}
+          </Link>
 
           <div className="course-box__rating-teacher">
             <div className="course-box__teacher">
               <i className="fas fa-chalkboard-teacher course-box__teacher-icon"></i>
               <a href="#" className="course-box__teacher-link">
-                رضا دولتی
+                {props.creator}
               </a>
             </div>
             <div className="course-box__rating">
@@ -69,15 +71,17 @@ export default function CourseBox() {
               <i className="fas fa-users course-box__users-icon"></i>
               <span className="course-box__users-text">500</span>
             </div>
-            <span className="course-box__price">1,000,000</span>
+            <span className="course-box__price">{
+              props.price === 0 ? 'رایگان' : Number(props.price).toLocaleString()
+            }</span>
           </div>
         </div>
 
         <div className="course-box__footer">
-          <a href="#" className="course-box__footer-link">
+          <Link to={`/course-info/${props.shortName}`} className="course-box__footer-link">
             مشاهده اطلاعات
             <i className="fas fa-arrow-left course-box__footer-icon"></i>
-          </a>
+          </Link>
         </div>
       </div>
     </div>

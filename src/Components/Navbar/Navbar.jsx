@@ -26,9 +26,9 @@ export default function Navbar() {
 
             <ul className="main-header__menu">
               <li className="main-header__item">
-                <a href="#" className="main-header__link">
+                <Link to="/" className="main-header__link">
                   صفحه اصلی
-                </a>
+                </Link>
               </li>
 
               {
