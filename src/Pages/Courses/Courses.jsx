@@ -1,9 +1,15 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import "./Courses.css";
 import Breadcrumb from "../../Components/Breadcrumb/Breadcrumb";
 import CourseBox from "../../Components/CourseBox/CourseBox";
 
 export default function Courses() {
+  const [courses, setCourses] = useState([])
+  useEffect(() => {
+    fetch(`http://localhost:4000/v1/courses`)
+        .then(res => res.json())
+        .then(data => setCourses(data))
+  })
   return (
     <>
       <Breadcrumb
@@ -21,12 +27,11 @@ export default function Courses() {
           <div className="courses-content">
             <div className="container">
               <div className="row">
-                <CourseBox />
-                <CourseBox />
-                <CourseBox />
-                <CourseBox />
-                <CourseBox />
-                <CourseBox />
+                {
+                  courses.map(course => (
+                      <CourseBox {...course}/>
+                  ))
+                }
               </div>
             </div>
           </div>
