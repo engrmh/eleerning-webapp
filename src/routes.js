@@ -16,7 +16,7 @@ const routes = [
     element: <CourseInfo />,
   },
   {
-    path: "/category-info/:categoryName",
+    path: "/category-info/:categoryName/:page",
     element: <Category />,
   },
   {
@@ -24,7 +24,7 @@ const routes = [
     element: <ArticleInfo />,
   },
   {
-    path: "/courses",
+    path: "/courses/:page",
     element: <Courses />,
   },
   {

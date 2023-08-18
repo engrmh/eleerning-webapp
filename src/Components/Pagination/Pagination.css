@@ -26,6 +26,6 @@
 }
 
 .courses__pagination-link--active {
-    color: var(--white-color);
-    background-color: var(--primary-color);
+    color: var(--white-color) !important;
+    background-color: var(--primary-color) !important;
 }

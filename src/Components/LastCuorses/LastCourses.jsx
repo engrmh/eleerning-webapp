@@ -19,10 +19,10 @@ export default function LastCourses() {
       <div className="courses">
         <div className="container">
           <SectionHeader
-            title={"جدیدترین دوره ها"}
-            desc={"سکوی پرتاپ شما به سمت موفقیت"}
-            btnTitle={"تمامی دوره ها"}
-            btnHref={"courses"}
+            title="جدیدترین دوره ها"
+            desc="سکوی پرتاپ شما به سمت موفقیت"
+            btnTitle="تمامی دوره ها"
+            btnHref="courses/1"
           />
 
           <div className="courses-content">
