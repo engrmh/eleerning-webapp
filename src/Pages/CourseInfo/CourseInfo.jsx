@@ -15,6 +15,7 @@ export default function CourseInfo() {
   const [createAt, setCreateAt] = useState('')
   const [updatedAt, setUpdatedAt] = useState('')
   const [courseDetail, setCourseDetail] = useState({})
+  const [courseTeacher, setCourseTeacher] = useState({})
 
   const {courseName} = useParams()
   const localStorageData = JSON.parse(localStorage.getItem('user'))
@@ -33,6 +34,7 @@ export default function CourseInfo() {
           setCreateAt(data.createdAt)
           setUpdatedAt(data.updatedAt)
           setCourseDetail(data)
+          setCourseTeacher(data.creator)
         })
   }, []);
 
@@ -281,7 +283,7 @@ export default function CourseInfo() {
                                 href="#"
                                 className="techer-details__header-link"
                               >
-                                محمدامین سعیدی راد
+                                {courseTeacher.name}
                               </a>
                               <span className="techer-details__header-skill">
                                 Front End & Back End Developer
