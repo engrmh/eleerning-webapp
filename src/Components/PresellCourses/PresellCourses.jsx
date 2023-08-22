@@ -30,7 +30,7 @@ export default function PresellCourses() {
                             {
                                 preSellCourses.map((item , index) => (
                                     <SwiperSlide key={index}>
-                                        <CourseBox {...item}/>
+                                        <CourseBox {...item} isSlide={true}/>
                                     </SwiperSlide>
                                 ))
                             }

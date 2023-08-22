@@ -12,7 +12,7 @@ export default function CourseBox(props) {
   // };
 
   return (
-    <div className="col-4">
+    <div className={props.isSlide ? 'col-4 w-100' : 'col-4'}>
       <div className="course-box">
         <Link to={`/course-info/${props.shortName}`}>
           <img

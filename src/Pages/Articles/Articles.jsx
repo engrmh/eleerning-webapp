@@ -34,7 +34,7 @@ export default function Articles() {
             <div className="container">
               <div className="row">
                 {
-                    shownArticles.length && shownArticles.map((course , index) => (
+                    articles.length && shownArticles.map((course , index) => (
                       <ArticleBox {...course} key={index}/>
                   ))
                 }
