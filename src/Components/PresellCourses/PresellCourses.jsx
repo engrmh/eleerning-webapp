@@ -8,11 +8,11 @@ import CourseBox from "../CourseBox/CourseBox";
 
 
 export default function PresellCourses() {
-    const [preSellCourses, setPreSellCourses] = useState([])
+    const [popularCourses, setPopularCourses] = useState([])
     useEffect(() => {
-        fetch(`http://localhost:4000/v1/courses/presell`)
+        fetch(`http://localhost:4000/v1/courses/popular`)
             .then(res => res.json())
-            .then(data => setPreSellCourses(data))
+            .then(data => setPopularCourses(data))
     }, []);
   return (
     <>
@@ -25,10 +25,11 @@ export default function PresellCourses() {
                         <Swiper
                             slidesPerView={3}
                             spaceBetween={30}
+                            loop={true}
                             className="mySwiper"
                         >
                             {
-                                preSellCourses.map((item , index) => (
+                                popularCourses.map((item , index) => (
                                     <SwiperSlide key={index}>
                                         <CourseBox {...item} isSlide={true}/>
                                     </SwiperSlide>
