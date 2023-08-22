@@ -3,7 +3,7 @@ import "./Pagination.css";
 import {Link, useParams} from "react-router-dom";
 import app from "../../App";
 
-function Pagination({items , itemsCount , pathName , setShownCourses}) {
+function Pagination({items , itemsCount , pathName , setShownItems}) {
   const {page} = useParams()
   const [pageCount, setPageCount] = useState(null)
 
@@ -11,7 +11,7 @@ function Pagination({items , itemsCount , pathName , setShownCourses}) {
     let endIndex = itemsCount * page //=> 3 * 1 -> items -> [1 , 3]
     let startIndex = endIndex - itemsCount //=> 3 - 3 = 0 -> [0,3]
     let paginatedItems = items.slice(startIndex , endIndex)
-    setShownCourses(paginatedItems)
+    setShownItems(paginatedItems)
     let pagesNumber = Math.ceil(items.length / itemsCount)
     setPageCount(pagesNumber)
   }, [page , items]);

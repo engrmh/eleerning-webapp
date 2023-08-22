@@ -44,7 +44,7 @@ export default function Courses() {
             items={courses}
             itemsCount={3}
             pathName='/courses'
-            setShownCourses={setShownCourses}
+            setShownItems={setShownCourses}
           />
         </div>
       </section>

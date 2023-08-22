@@ -5,6 +5,7 @@ import ArticleInfo from "./Pages/ArticleInfo/ArticleInfo";
 import Courses from "./Pages/Courses/Courses";
 import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
+import Articles from "./Pages/Articles/Articles";
 
 const routes = [
   {
@@ -26,6 +27,9 @@ const routes = [
   {
     path: "/courses/:page",
     element: <Courses />,
+  },{
+    path: "/articles/:page",
+    element: <Articles />,
   },
   {
     path: "/login",
