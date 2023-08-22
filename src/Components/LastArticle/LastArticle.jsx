@@ -1,9 +1,16 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import SectionHeader from "../SectionHeader/SectionHeader";
 import "./LastArticle.css";
 import ArticleBox from "../ArticleBox/ArticleBox";
 
 export default function LastArticle() {
+  const [article, setArticle] = useState([])
+
+  useEffect(() => {
+    fetch(`http://localhost:4000/v1/articles`)
+        .then(res => res.json())
+        .then(data => setArticle(data))
+  }, []);
   return (
     <>
       <section className="articles">
@@ -16,21 +23,11 @@ export default function LastArticle() {
 
           <div className="articles__content">
             <div className="row">
-              <ArticleBox
-                cover="images/blog/3.jpg"
-                title="نحوه نصب کتابخانه در پایتون | آموزش نصب کتابخانه پایتون"
-                desc="زبان پایتون هم مانند دیگر زبان­های برنامه نویسی رایج، دارای کتابخانه های مختلفی برای تسریع..."
-              />
-              <ArticleBox
-                cover="images/blog/3.jpg"
-                title="نحوه نصب کتابخانه در پایتون | آموزش نصب کتابخانه پایتون"
-                desc="زبان پایتون هم مانند دیگر زبان­های برنامه نویسی رایج، دارای کتابخانه های مختلفی برای تسریع..."
-              />
-              <ArticleBox
-                cover="images/blog/3.jpg"
-                title="نحوه نصب کتابخانه در پایتون | آموزش نصب کتابخانه پایتون"
-                desc="زبان پایتون هم مانند دیگر زبان­های برنامه نویسی رایج، دارای کتابخانه های مختلفی برای تسریع..."
-              />
+              {
+                article.slice(0,3).map((item , index) => (
+                    <ArticleBox {...item} key={index}/>
+                ))
+              }
             </div>
           </div>
         </div>
