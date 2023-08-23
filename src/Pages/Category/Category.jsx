@@ -67,7 +67,7 @@ export default function Category() {
                 <div className="row">
                   {courses.length === 0 ? (
                       <div className="alert alert-warning">
-                        هنوز هیچ دوره‌ای برای این کتگوری وجود ندارد
+                        هنوز هیچ دوره‌ای برای این دسته بندی وجود ندارد
                       </div>
                   ) : (
                       <>
@@ -146,9 +146,19 @@ export default function Category() {
                             </form>
                           </div>
                         </div>
-                        {shownCourses.map((course) => (
-                            <CourseBox {...course} />
-                        ))}
+                        {
+                          shownCourses.length === 0 ? (
+                              <div className='alert alert-warning'>هیچ دوره ای برای
+                                {" "}
+                                {statusTitle}
+                                {" "}
+                                وجود ندارد.</div>
+                          ) : (
+                              shownCourses.map((course) => (
+                                  <CourseBox {...course} />
+                              ))
+                          )
+                        }
 
                         <Pagination
                             items={orderedCourses}
