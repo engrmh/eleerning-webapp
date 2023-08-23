@@ -14,6 +14,7 @@ export default function Category() {
   const [shownCourses, setShownCourses] = useState([])
   const [status, setStatus] = useState('default')
   const [statusTitle, setStatusTitle] = useState('مرتب سازی پیش فرض')
+  const [searchValue, setSearchValue] = useState('')
 
   const { categoryName } = useParams();
 
@@ -56,6 +57,12 @@ export default function Category() {
 
   const statusTitleChangeHandler = event => {
     setStatusTitle(event.target.textContent)
+  }
+
+  const SearchValueSearchHandler = event => {
+    setSearchValue(event.target.value)
+    const filteredCourse = courses.filter(course => course.name.includes(event.target.value))
+    setOrderedCourses(filteredCourse)
   }
 
   return (
@@ -141,6 +148,8 @@ export default function Category() {
                                   type="text"
                                   className="courses-top-bar__input"
                                   placeholder="جستجوی دوره ..."
+                                  value={searchValue}
+                                  onChange={SearchValueSearchHandler}
                               />
                               <i className="fas fa-search courses-top-bar__search-icon"></i>
                             </form>
@@ -148,11 +157,7 @@ export default function Category() {
                         </div>
                         {
                           shownCourses.length === 0 ? (
-                              <div className='alert alert-warning'>هیچ دوره ای برای
-                                {" "}
-                                {statusTitle}
-                                {" "}
-                                وجود ندارد.</div>
+                              <div className='alert alert-warning'>هیچ دوره ای یافت نشد.</div>
                           ) : (
                               shownCourses.map((course) => (
                                   <CourseBox {...course} />
