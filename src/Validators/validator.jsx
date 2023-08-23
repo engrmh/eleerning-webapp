@@ -21,10 +21,6 @@ const validator = (value , validation) =>{
         }
     }
 
-    if (validtionResults.length){
-        return false
-    }else {
-        return true
-    }
+    return !validtionResults.length;
 }
 export default validator

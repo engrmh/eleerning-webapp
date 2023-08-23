@@ -6,6 +6,7 @@ import Courses from "./Pages/Courses/Courses";
 import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
 import Articles from "./Pages/Articles/Articles";
+import Contact from "./Pages/Contact/Contact";
 
 const routes = [
   {
@@ -38,6 +39,9 @@ const routes = [
   {
     path: "/register",
     element: <Register />,
+  },{
+    path: "/contact",
+    element: <Contact />,
   },
 ];
 export default routes;
