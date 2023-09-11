@@ -7,6 +7,7 @@ import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
 import Articles from "./Pages/Articles/Articles";
 import Contact from "./Pages/Contact/Contact";
+import Search from "./Pages/Search/Search";
 
 const routes = [
   {
@@ -42,6 +43,9 @@ const routes = [
   },{
     path: "/contact",
     element: <Contact />,
+  },{
+    path: "/search/:value",
+    element: <Search />,
   },
 ];
 export default routes;
