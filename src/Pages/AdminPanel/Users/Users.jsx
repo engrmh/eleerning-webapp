@@ -45,6 +45,33 @@ export default function Users() {
       }
     });
   };
+
+  const userBanHandler = (userID) => {
+    swal({
+      title: "برای مسدودی کاربر اطمینان دارید؟",
+      icon: "warning",
+      buttons: ["نه", "بله"],
+    }).then((res) => {
+      if (res) {
+        fetch(`http://localhost:4000/v1/users/ban/${userID}`, {
+          method: "PUT",
+          headers: {
+            authorization: `Bearer ${localStorageData.token}`,
+          },
+        }).then((res) => {
+          if (res.ok) {
+            swal({
+              title: "کاربر با موفقیت مسدود شد",
+              icon: "success",
+              buttons: "متوجه شدم",
+            }).then(() => {
+              getAllUsers();
+            });
+          }
+        });
+      }
+    });
+  };
   return (
     <>
       <DataTable title="کاربران">
@@ -53,7 +80,7 @@ export default function Users() {
             <tr>
               <th className="text-black bg-info">شناسه</th>
               <th className="text-black bg-info">نام و نام خانوادگی</th>
-              {/*<th className="text-black bg-info">شماره</th>*/}
+              <th className="text-black bg-info">شماره</th>
               <th className="text-black bg-info">ایمیل</th>
               <th className="text-black bg-info">نام کاربری</th>
               <th className="text-black bg-info">ویرایش</th>
@@ -66,7 +93,7 @@ export default function Users() {
               <tr key={index}>
                 <td>{index + 1}</td>
                 <td>{user.name}</td>
-                {/*<td>{user.phone}</td>*/}
+                <td>{user.phone}</td>
                 <td>{user.email}</td>
                 <td>{user.username}</td>
                 {user.role !== "ADMIN" && (
@@ -92,6 +119,7 @@ export default function Users() {
                       <button
                         type="button"
                         className="btn btn-danger delete-btn"
+                        onClick={() => userBanHandler(user._id)}
                       >
                         مسدود
                       </button>
