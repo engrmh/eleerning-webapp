@@ -13,6 +13,7 @@ import AdminPanel from "./Pages/AdminPanel/index";
 import Users from "./Pages/AdminPanel/Users/Users";
 import AdminArticles from "./Pages/AdminPanel/Articles/Articles";
 import AdminCourses from "./Pages/AdminPanel/Articles/Articles";
+import Menus from "./Pages/AdminPanel/Menus/Menus";
 
 const routes = [
   {
@@ -73,7 +74,7 @@ const routes = [
       },
       {
         path: "menus",
-        element: <Users />,
+        element: <Menus />,
       },
     ],
   },
