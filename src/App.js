@@ -23,9 +23,9 @@ function App() {
   };
 
   const logout = useCallback(() => {
-    setToken(null);
-    setUserInfos({});
-    localStorage.removeItem("user");
+    // setToken(null);
+    // setUserInfos({});
+    // localStorage.removeItem("user");
   }, []);
 
   useEffect(() => {

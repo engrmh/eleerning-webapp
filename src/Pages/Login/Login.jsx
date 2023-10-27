@@ -12,7 +12,7 @@ import ReCAPTCHA from 'react-google-recaptcha'
 export default function Login() {
   const navigate = useNavigate()
   const authContext = useContext(AuthContext)
-  const [isGoogleRecapthaVerify, setIsGoogleRecapthaVerify] = useState(false)
+  const [isGoogleRecapthaVerify, setIsGoogleRecapthaVerify] = useState(true)
   const [formState , onInputHandler] = useForm({
     username: {
       value: '',
