@@ -1,8 +1,36 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./Sidebar.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import AuthContext from "../../context/authContext";
 
 export default function Sidebar() {
+  const authContext = useContext(AuthContext);
+  const navigate = useNavigate();
+  const logOutAdmin = (e) => {
+    e.preventDefault();
+    swal({
+      title: "برای خروج مطمئن هستید؟",
+      icon: "warning",
+      buttons: ["اشتباه شد", "بله"],
+    }).then((res) => {
+      if (res) {
+        swal({
+          title: "خروج موفق",
+          icon: "success",
+          button: "متوجه شدم",
+        }).then(() => {
+          authContext.logout();
+          navigate("/");
+        });
+      } else {
+        swal({
+          title: "لغو عملیات خروج",
+          icon: "info",
+          button: "متوجه شدم",
+        });
+      }
+    });
+  };
   return (
     <div id="sidebar" className="col-2">
       <div className="sidebar-header">
@@ -51,6 +79,11 @@ export default function Sidebar() {
           <li>
             <Link to="#">
               <span>دسته‌بندی‌ها</span>
+            </Link>
+          </li>
+          <li onClick={(e) => logOutAdmin(e)}>
+            <Link to="#">
+              <span>خروج</span>
             </Link>
           </li>
         </ul>

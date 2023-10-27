@@ -23,9 +23,9 @@ function App() {
   };
 
   const logout = useCallback(() => {
-    // setToken(null);
-    // setUserInfos({});
-    // localStorage.removeItem("user");
+    setToken(null);
+    setUserInfos({});
+    localStorage.removeItem("user");
   }, []);
 
   useEffect(() => {
@@ -41,8 +41,10 @@ function App() {
           setIsLoggedIn(true);
           setUserInfos(userData);
         });
+    } else {
+      setIsLoggedIn(false);
     }
-  }, [login, token]);
+  }, [login, token, logout]);
 
   return (
     <AuthContext.Provider
