@@ -1,11 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import DataTable from "../../../Components/AdminPanel/DataTable/DataTable";
-import AuthContext from "../../../Components/context/authContext";
 
 export default function Users() {
   const [allUsers, setAllUsers] = useState([]);
+  const localStorageData = JSON.parse(localStorage.getItem("user"));
   useEffect(() => {
-    const localStorageData = JSON.parse(localStorage.getItem("user"));
+    getAllUsers();
+  }, []);
+
+  const getAllUsers = () => {
     fetch(`http://localhost:4000/v1/users`, {
       headers: {
         authorization: `Bearer ${localStorageData.token}`,
@@ -15,7 +18,31 @@ export default function Users() {
       .then((data) => {
         setAllUsers(data);
       });
-  }, []);
+  };
+  const userRemoveHandler = (userID) => {
+    swal({
+      title: "برای حذف اطمینان دارید؟",
+      icon: "warning",
+      buttons: ["نه", "بله"],
+    }).then((res) => {
+      if (res) {
+        fetch(`http://localhost:4000/v1/users/${userID}`, {
+          method: "DELETE",
+          headers: {
+            authorization: `Bearer ${localStorageData.token}`,
+          },
+        }).then((res) => {
+          if (res.ok) {
+            swal({
+              title: "با موفقیت حذف شد",
+              icon: "success",
+              buttons: "متوجه شدم",
+            }).then(getAllUsers());
+          }
+        });
+      }
+    });
+  };
   return (
     <>
       <DataTable title="کاربران">
@@ -40,21 +67,35 @@ export default function Users() {
                 {/*<td>{user.phone}</td>*/}
                 <td>{user.email}</td>
                 <td>{user.username}</td>
-                <td>
-                  <button type="button" className="btn btn-primary edit-btn">
-                    ویرایش
-                  </button>
-                </td>
-                <td>
-                  <button type="button" className="btn btn-danger delete-btn">
-                    حذف
-                  </button>
-                </td>
-                <td>
-                  <button type="button" className="btn btn-danger delete-btn">
-                    مسدود
-                  </button>
-                </td>
+                {user.role !== "ADMIN" && (
+                  <>
+                    <td>
+                      <button
+                        type="button"
+                        className="btn btn-primary edit-btn"
+                      >
+                        ویرایش
+                      </button>
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        className="btn btn-danger delete-btn"
+                        onClick={() => userRemoveHandler(user._id)}
+                      >
+                        حذف
+                      </button>
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        className="btn btn-danger delete-btn"
+                      >
+                        مسدود
+                      </button>
+                    </td>
+                  </>
+                )}
               </tr>
             ))}
           </tbody>
