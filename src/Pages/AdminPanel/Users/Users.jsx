@@ -37,7 +37,9 @@ export default function Users() {
               title: "با موفقیت حذف شد",
               icon: "success",
               buttons: "متوجه شدم",
-            }).then(getAllUsers());
+            }).then(() => {
+              getAllUsers();
+            });
           }
         });
       }
