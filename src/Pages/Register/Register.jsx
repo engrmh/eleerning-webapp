@@ -1,38 +1,43 @@
-import React, {useContext, useState} from "react";
+import React, { useContext, useState } from "react";
 import "./Register.css";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import Input from "../../Components/Form/Input";
 import Button from "../../Components/Form/Button";
-import {emailValidator, maxValidator, minValidator, requiredValidator} from "../../Validators/rules";
-import {useForm} from "../../hooks/useForm";
+import {
+  emailValidator,
+  maxValidator,
+  minValidator,
+  requiredValidator,
+} from "../../Validators/rules";
+import { useForm } from "../../hooks/useForm";
 import AuthContext from "../../Components/context/authContext";
 import ReCAPTCHA from "react-google-recaptcha";
 
 export default function Register() {
-  const authContext = useContext(AuthContext)
-  const [isGoogleRecapthaVerify, setIsGoogleRecapthaVerify] = useState(false)
-  const [formState , onInputHandler] = useForm({
+  const authContext = useContext(AuthContext);
+  const [isGoogleRecapthaVerify, setIsGoogleRecapthaVerify] = useState(false);
+  const [formState, onInputHandler] = useForm({
     name: {
-      value: '',
-      isValid : false
+      value: "",
+      isValid: false,
     },
     username: {
-      value: '',
-      isValid : false
+      value: "",
+      isValid: false,
     },
     email: {
-      value: '',
-      isValid : false
+      value: "",
+      isValid: false,
     },
     phone: {
-      value: '',
-      isValid : false
+      value: "",
+      isValid: false,
     },
     password: {
-      value: '',
-      isValid : false
+      value: "",
+      isValid: false,
     },
-  })
+  });
   const registerNewUser = (e) => {
     e.preventDefault();
     const newUserInfos = {
@@ -41,24 +46,37 @@ export default function Register() {
       password: formState.inputs.password.value,
       confirmPassword: formState.inputs.password.value,
       name: formState.inputs.name.value,
-      phone: formState.inputs.phone.value
-    }
+      phone: formState.inputs.phone.value,
+    };
 
-    fetch('http://localhost:4000/v1/auth/register' , {
-      method: 'POST',
+    fetch("http://localhost:4000/v1/auth/register", {
+      method: "POST",
       headers: {
-        'Content-Type' : 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(newUserInfos)
-    }).then(res => res.json())
-        .then(json => {
-          authContext.login(json.user , json.accessToken)
-        })
+      body: JSON.stringify(newUserInfos),
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          if (res.status === 403) {
+            swal({
+              title: "این شماره مسدود میباشد!",
+              icon: "success",
+              button: "متوجه شدم",
+            });
+          }
+        }
+      })
+      .then((json) => {
+        authContext.login(json.user, json.accessToken);
+      });
   };
 
   const onChangeHandler = () => {
-    setIsGoogleRecapthaVerify(true)
-  }
+    setIsGoogleRecapthaVerify(true);
+  };
 
   return (
     <section className="login-register">
@@ -80,7 +98,7 @@ export default function Register() {
             <Input
               element="input"
               className="login-form__username-input"
-              id='name'
+              id="name"
               type="text"
               placeholder="نام و نام خانوادگی"
               validation={[
@@ -96,7 +114,7 @@ export default function Register() {
             <Input
               element="input"
               className="login-form__username-input"
-              id='username'
+              id="username"
               type="text"
               placeholder="نام کاربری"
               validation={[
@@ -111,7 +129,7 @@ export default function Register() {
           <div className="login-form__password">
             <Input
               element="input"
-              id='email'
+              id="email"
               className="login-form__username-input"
               type="text"
               placeholder="آدرس ایمیل"
@@ -119,7 +137,7 @@ export default function Register() {
                 requiredValidator(),
                 minValidator(8),
                 maxValidator(30),
-                emailValidator()
+                emailValidator(),
               ]}
               onInputHandler={onInputHandler}
             />
@@ -127,31 +145,31 @@ export default function Register() {
           </div>
           <div className="login-form__username">
             <Input
-                element="input"
-                className="login-form__username-input"
-                id='phone'
-                type="tel"
-                placeholder="شماره تماس"
-                validation={[
-                  requiredValidator(),
-                  minValidator(6),
-                  maxValidator(20),
-                ]}
-                onInputHandler={onInputHandler}
+              element="input"
+              className="login-form__username-input"
+              id="phone"
+              type="tel"
+              placeholder="شماره تماس"
+              validation={[
+                requiredValidator(),
+                minValidator(6),
+                maxValidator(20),
+              ]}
+              onInputHandler={onInputHandler}
             />
             <i className="login-form__username-icon fa-solid fa-phone"></i>
           </div>
           <div className="login-form__password">
             <Input
               element="input"
-              id='password'
+              id="password"
               className="login-form__password-input"
               type="password"
               placeholder="رمز عبور"
               validation={[
                 requiredValidator(),
                 minValidator(8),
-                maxValidator(18)
+                maxValidator(18),
               ]}
               onInputHandler={onInputHandler}
             />
@@ -159,12 +177,16 @@ export default function Register() {
           </div>
           <div className="login-form__password my-2">
             <ReCAPTCHA
-                sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
-                onChange={onChangeHandler}
+              sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+              onChange={onChangeHandler}
             />
           </div>
           <Button
-            className={`login-form__btn ${formState.isFormValid && isGoogleRecapthaVerify ? 'login-form__btn-success' : 'login-form__btn-error'}`}
+            className={`login-form__btn ${
+              formState.isFormValid && isGoogleRecapthaVerify
+                ? "login-form__btn-success"
+                : "login-form__btn-error"
+            }`}
             type="submit"
             onClick={(e) => registerNewUser(e)}
             disabled={!formState.isFormValid || !isGoogleRecapthaVerify}
