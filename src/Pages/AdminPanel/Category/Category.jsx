@@ -95,6 +95,38 @@ export default function CategoryAPanel() {
     });
   };
 
+  const editCategory = (categoryID) => {
+    swal({
+      title: "عنوان جدید را وارد کنید",
+      content: "input",
+      buttons: "ثبت عنوان جدید",
+    }).then((res) => {
+      if (res.trim().length) {
+        fetch(`http://localhost:4000/v1/category/${categoryID}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${localStorageData.token}`,
+          },
+          body: JSON.stringify({
+            title: res,
+            name: res,
+          }),
+        }).then((res) => {
+          if (res.ok) {
+            swal({
+              title: "با موفقیت ویرایش شد",
+              icon: "success",
+              buttons: "متوجه شدم",
+            }).then(() => {
+              getAllCategories();
+            });
+          }
+        });
+      }
+    });
+  };
+
   return (
     <>
       <div className="container-fluid" id="home-content">
@@ -162,7 +194,11 @@ export default function CategoryAPanel() {
                 <td>{index + 1}</td>
                 <td>{category.title}</td>
                 <td>
-                  <button type="button" className="btn btn-primary edit-btn">
+                  <button
+                    type="button"
+                    className="btn btn-primary edit-btn"
+                    onClick={() => editCategory(category._id)}
+                  >
                     ویرایش
                   </button>
                 </td>
