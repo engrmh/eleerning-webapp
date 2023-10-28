@@ -55,7 +55,7 @@ export default function Users() {
   const registerNewUser = (event) => {
     event.preventDefault();
     const newUserInfo = {
-      name: `${formState.inputs.name.value}`,
+      name: formState.inputs.name.value,
       username: formState.inputs.username.value,
       email: formState.inputs.email.value,
       phone: formState.inputs.phone.value,
@@ -72,7 +72,13 @@ export default function Users() {
     })
       .then((res) => res.json())
       .then(() => {
-        getAllUsers();
+        swal({
+          title: "با موفقیت افزوده شد",
+          icon: "success",
+          buttons: "متوجه شدم",
+        }).then(() => {
+          getAllUsers();
+        });
       });
   };
   const userRemoveHandler = (userID) => {
@@ -140,17 +146,16 @@ export default function Users() {
             <div className="name input">
               <label className="input-title">نام و نام خانوادگی</label>
               <Input
-                type="text"
-                className=""
-                id="name"
                 element="input"
-                validations={[
+                id="name"
+                type="text"
+                placeholder="لطفا نام و نام خانوادگی کاربر را وارد کنید..."
+                validation={[
+                  minValidator(5),
+                  maxValidator(30),
                   requiredValidator(),
-                  minValidator(8),
-                  maxValidator(20),
                 ]}
                 onInputHandler={onInputHandler}
-                placeholder="لطفا نام و نام خانوادگی کاربر را وارد کنید..."
               />
               <span className="error-message text-danger"></span>
             </div>
@@ -159,17 +164,16 @@ export default function Users() {
             <div className="family input">
               <label className="input-title">نام کاربری</label>
               <Input
-                type="text"
-                className=""
-                id="username"
                 element="input"
-                validations={[
-                  requiredValidator(),
+                id="username"
+                type="text"
+                placeholder="لطفا نام کاربری را وارد کنید..."
+                validation={[
                   minValidator(8),
                   maxValidator(20),
+                  requiredValidator(),
                 ]}
                 onInputHandler={onInputHandler}
-                placeholder="لطفا نام کاربری را وارد کنید..."
               />
               <span className="error-message text-danger"></span>
             </div>
@@ -178,18 +182,16 @@ export default function Users() {
             <div className="email input">
               <label className="input-title">ایمیل</label>
               <Input
-                type="text"
-                className=""
-                id="email"
                 element="input"
-                validations={[
-                  requiredValidator(),
+                id="email"
+                type="text"
+                placeholder="لطفا ایمیل کاربر را وارد کنید..."
+                validation={[
                   minValidator(8),
-                  maxValidator(20),
-                  emailValidator(),
+                  maxValidator(30),
+                  requiredValidator(),
                 ]}
                 onInputHandler={onInputHandler}
-                placeholder="لطفا ایمیل کاربر را وارد کنید..."
               />
               <span className="error-message text-danger"></span>
             </div>
@@ -198,17 +200,16 @@ export default function Users() {
             <div className="password input">
               <label className="input-title">رمز عبور</label>
               <Input
-                type="text"
-                className=""
-                id="password"
                 element="input"
-                validations={[
-                  requiredValidator(),
+                id="passowrd"
+                type="text"
+                placeholder="لطفا رمز عبور کاربر را وارد کنید..."
+                validation={[
                   minValidator(8),
                   maxValidator(20),
+                  requiredValidator(),
                 ]}
                 onInputHandler={onInputHandler}
-                placeholder="لطفا رمز عبور کاربر را وارد کنید..."
               />
               <span className="error-message text-danger"></span>
             </div>
@@ -217,17 +218,16 @@ export default function Users() {
             <div className="phone input">
               <label className="input-title">شماره تلفن</label>
               <Input
-                type="text"
-                className=""
-                id="phone"
                 element="input"
-                validations={[
-                  requiredValidator(),
+                id="phone"
+                type="text"
+                placeholder="لطفا شماره تلفن کاربر را وارد کنید..."
+                validation={[
                   minValidator(8),
                   maxValidator(20),
+                  requiredValidator(),
                 ]}
                 onInputHandler={onInputHandler}
-                placeholder="لطفا شماره تلفن کاربر را وارد کنید..."
               />
               <span className="error-message text-danger"></span>
             </div>
@@ -235,7 +235,11 @@ export default function Users() {
           <div className="col-12">
             <div className="bottom-form">
               <div className="submit-btn">
-                <input type="submit" value="افزودن" onClick={registerNewUser} />
+                <input
+                  type="submit"
+                  value="افزودن"
+                  onClick={() => registerNewUser()}
+                />
               </div>
             </div>
           </div>
