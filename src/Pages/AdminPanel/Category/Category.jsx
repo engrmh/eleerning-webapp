@@ -12,6 +12,7 @@ import "./Category.css";
 
 export default function CategoryAPanel() {
   const [categories, setCategories] = useState([]);
+  const localStorageData = JSON.parse(localStorage.getItem("user"));
   const [formState, onInputHandler] = useForm(
     {
       title: {
@@ -40,7 +41,6 @@ export default function CategoryAPanel() {
 
   const createNewCategory = (event) => {
     event.preventDefault();
-    const localStorageData = JSON.parse(localStorage.getItem("user"));
 
     const newCategoryInfo = {
       title: formState.inputs.title.value,
@@ -66,6 +66,33 @@ export default function CategoryAPanel() {
           getAllCategories();
         });
       });
+  };
+
+  const categoryRemoveHandler = (userID) => {
+    swal({
+      title: "برای حذف اطمینان دارید؟",
+      icon: "warning",
+      buttons: ["نه", "بله"],
+    }).then((res) => {
+      if (res) {
+        fetch(`http://localhost:4000/v1/category/${userID}`, {
+          method: "DELETE",
+          headers: {
+            authorization: `Bearer ${localStorageData.token}`,
+          },
+        }).then((res) => {
+          if (res.ok) {
+            swal({
+              title: "با موفقیت حذف شد",
+              icon: "success",
+              buttons: "متوجه شدم",
+            }).then(() => {
+              getAllCategories();
+            });
+          }
+        });
+      }
+    });
   };
 
   return (
@@ -140,7 +167,11 @@ export default function CategoryAPanel() {
                   </button>
                 </td>
                 <td>
-                  <button type="button" className="btn btn-danger delete-btn">
+                  <button
+                    type="button"
+                    className="btn btn-danger delete-btn"
+                    onClick={() => categoryRemoveHandler(category._id)}
+                  >
                     حذف
                   </button>
                 </td>
